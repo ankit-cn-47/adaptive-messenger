@@ -4,7 +4,7 @@ import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class StatusCron implements Status {
-  private logger = new Logger('Device Info Cron Job');
+  private logger = new Logger('Status Cron Job');
   @Cron('45 * * * * *')
   public getStatus(param: string): string {
     this.logger.debug('Called when the current second is 45');
