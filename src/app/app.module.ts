@@ -12,7 +12,14 @@ import { FaultsService } from './service/faults/faults.service';
 
 @Module({
   imports: [SharedModule, ScheduleModule.forRoot()],
-  providers: [EventsGateway, FaultsCron, DeviceInfoCron, StatusCron, StatusService, DeviceInfoService, FaultsService],
+  providers: [
+    EventsGateway,
+    FaultsCron,
+    DeviceInfoCron,
+    StatusCron,
+    StatusService,
+    DeviceInfoService,
+    FaultsService,
+  ],
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -1,3 +1,3 @@
 export interface Faults {
-    getFaults(string): string;
+  getFaults(string): string;
 }

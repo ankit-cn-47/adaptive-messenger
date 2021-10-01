@@ -1,3 +1,3 @@
 export interface DeviceInfo {
-    getDeviceInfo(string): string;
+  getDeviceInfo(string): string;
 }

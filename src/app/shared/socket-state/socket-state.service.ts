@@ -12,7 +12,7 @@ export class SocketStateService {
       return true;
     }
 
-    const sockets = existingSockets.filter(s => s.id !== socket.id);
+    const sockets = existingSockets.filter((s) => s.id !== socket.id);
 
     if (!sockets.length) {
       this.socketState.delete(userId);
@@ -40,7 +40,7 @@ export class SocketStateService {
   public getAll(): Socket[] {
     const all = [];
 
-    this.socketState.forEach(sockets => all.push(sockets));
+    this.socketState.forEach((sockets) => all.push(sockets));
 
     return all;
   }

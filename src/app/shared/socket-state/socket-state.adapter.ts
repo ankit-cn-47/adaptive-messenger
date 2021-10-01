@@ -23,12 +23,17 @@ export class SocketStateAdapter extends IoAdapter implements WebSocketAdapter {
     super(app);
   }
 
-  public create(port: number, options: socketio.ServerOptions = {}): socketio.Server {
+  public create(
+    port: number,
+    options: socketio.ServerOptions = {},
+  ): socketio.Server {
     const server = super.createIOServer(port, options);
     this.redisPropagatorService.injectSocketServer(server);
 
     server.use(async (socket: AuthenticatedSocket, next) => {
-      const token = socket.handshake.query?.token || socket.handshake.headers?.authorization;
+      const token =
+        socket.handshake.query?.token ||
+        socket.handshake.headers?.authorization;
 
       if (!token) {
         socket.auth = null;

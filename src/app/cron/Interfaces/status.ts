@@ -1,3 +1,3 @@
 export interface Status {
-    getStatus(string): string;
+  getStatus(string): string;
 }
