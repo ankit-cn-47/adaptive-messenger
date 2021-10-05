@@ -1,13 +1,11 @@
 import { INestApplicationContext, WebSocketAdapter } from '@nestjs/common';
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import socketio from 'socket.io';
-
 import { RedisPropagatorService } from '@app/shared/redis-propagator/redis-propagator.service';
-
 import { SocketStateService } from './socket-state.service';
 
 interface TokenPayload {
-  readonly userId: string;
+  readonly clientId: string;
 }
 
 export interface AuthenticatedSocket extends socketio.Socket {
@@ -46,7 +44,7 @@ export class SocketStateAdapter extends IoAdapter implements WebSocketAdapter {
       try {
         // fake auth
         socket.auth = {
-          userId: '1234',
+          clientId: token,
         };
 
         return next();
@@ -61,10 +59,10 @@ export class SocketStateAdapter extends IoAdapter implements WebSocketAdapter {
   public bindClientConnect(server: socketio.Server, callback: Function): void {
     server.on('connection', (socket: AuthenticatedSocket) => {
       if (socket.auth) {
-        this.socketStateService.add(socket.auth.userId, socket);
+        this.socketStateService.add(socket.auth.clientId, socket);
 
         socket.on('disconnect', () => {
-          this.socketStateService.remove(socket.auth.userId, socket);
+          this.socketStateService.remove(socket.auth.clientId, socket);
 
           socket.removeAllListeners('disconnect');
         });

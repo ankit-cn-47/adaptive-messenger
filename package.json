@@ -18,6 +18,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
   },
   "dependencies": {
+    "@nestjs-plus/rabbitmq": "^1.4.4",
     "@nestjs/common": "^6.11.5",
     "@nestjs/core": "^6.11.5",
     "@nestjs/platform-express": "^6.11.5",

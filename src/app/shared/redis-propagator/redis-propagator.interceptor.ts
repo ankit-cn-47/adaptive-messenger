@@ -28,9 +28,7 @@ export class RedisPropagatorInterceptor<T>
     return next.handle().pipe(
       tap((data) => {
         this.redisPropagatorService.propagateEvent({
-          ...data,
-          socketId: socket.id,
-          userId: socket.auth?.userId,
+          ...data
         });
       }),
     );

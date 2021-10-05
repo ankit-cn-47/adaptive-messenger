@@ -5,8 +5,8 @@ import { Socket } from 'socket.io';
 export class SocketStateService {
   private socketState = new Map<string, Socket[]>();
 
-  public remove(userId: string, socket: Socket): boolean {
-    const existingSockets = this.socketState.get(userId);
+  public remove(clientId: string, socket: Socket): boolean {
+    const existingSockets = this.socketState.get(clientId);
 
     if (!existingSockets) {
       return true;
@@ -15,26 +15,26 @@ export class SocketStateService {
     const sockets = existingSockets.filter((s) => s.id !== socket.id);
 
     if (!sockets.length) {
-      this.socketState.delete(userId);
+      this.socketState.delete(clientId);
     } else {
-      this.socketState.set(userId, sockets);
+      this.socketState.set(clientId, sockets);
     }
 
     return true;
   }
 
-  public add(userId: string, socket: Socket): boolean {
-    const existingSockets = this.socketState.get(userId) || [];
+  public add(clientId: string, socket: Socket): boolean {
+    const existingSockets = this.socketState.get(clientId) || [];
 
     const sockets = [...existingSockets, socket];
 
-    this.socketState.set(userId, sockets);
+    this.socketState.set(clientId, sockets);
 
     return true;
   }
 
-  public get(userId: string): Socket[] {
-    return this.socketState.get(userId) || [];
+  public get(clientId: string): Socket[] {
+    return this.socketState.get(clientId) || [];
   }
 
   public getAll(): Socket[] {

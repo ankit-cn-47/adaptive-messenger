@@ -43,12 +43,11 @@ export class RedisPropagatorService {
     return this;
   }
 
-  private consumeSendEvent = (eventInfo: RedisSocketEventSendDTO): void => {
-    const { userId, event, data, socketId } = eventInfo;
+  private consumeSendEvent = (eventInfo): void => {
+    const { event, data } = eventInfo;
 
     return this.socketStateService
-      .get(userId)
-      .filter((socket) => socket.id !== socketId)
+      .get(data['clientId'])
       .forEach((socket) => socket.emit(event, data));
   };
 
@@ -68,8 +67,9 @@ export class RedisPropagatorService {
       .forEach((socket) => socket.emit(event, data));
   };
 
-  public propagateEvent(eventInfo: RedisSocketEventSendDTO): boolean {
-    if (!eventInfo.userId) {
+  public propagateEvent(eventInfo): boolean {
+
+    if (!eventInfo.data['clientId']) {
       return false;
     }
 

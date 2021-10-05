@@ -24,7 +24,7 @@ export class RedisService {
     private readonly redisPublisherClient: RedisClient,
   ) {}
 
-  public fromEvent<T extends RedisSocketEventSendDTO>(
+  public fromEvent<T>(
     eventName: string,
   ): Observable<T> {
     this.redisSubscriberClient.subscribe(eventName);
@@ -48,7 +48,6 @@ export class RedisService {
           if (error) {
             return reject(error);
           }
-
           return resolve(reply);
         },
       );
