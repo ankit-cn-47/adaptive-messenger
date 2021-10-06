@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@nestjs-plus/rabbitmq": "^1.4.4",
+    "@nestjs-plus/common": "^1.1.0",
     "@nestjs/common": "^6.11.5",
     "@nestjs/core": "^6.11.5",
     "@nestjs/platform-express": "^6.11.5",
