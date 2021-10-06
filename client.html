@@ -19,6 +19,9 @@
      s.on('events', (response) => {
        console.log(response);
      });
+     s.on('faults', (res)=>{
+       console.log(res);
+     })
    </script>
  </body>
 </html>

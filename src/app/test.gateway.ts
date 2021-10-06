@@ -1,5 +1,6 @@
+import { Server } from 'socket.io';
 import { UseInterceptors } from '@nestjs/common';
-import { SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
+import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,6 +9,7 @@ import { RedisPropagatorInterceptor } from '@app/shared/redis-propagator/redis-p
 @UseInterceptors(RedisPropagatorInterceptor)
 @WebSocketGateway()
 export class EventsGateway {
+  @WebSocketServer() server: Server;
   @SubscribeMessage('events')
   public findAll(): Observable<any> {
     return from([1, 2, 3]).pipe(
@@ -15,5 +17,9 @@ export class EventsGateway {
         return { event: 'events', data: item };
       }),
     );
+  }
+
+  public publishFault(data) {
+    this.server.emit('faults', data)
   }
 }
