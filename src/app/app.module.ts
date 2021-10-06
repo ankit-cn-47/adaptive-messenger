@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { SharedModule } from './shared/shared.module';
@@ -11,7 +11,7 @@ import { DeviceInfoService } from './service/device-info/device-info.service';
 import { FaultsService } from './service/faults/faults.service';
 
 @Module({
-  imports: [SharedModule, ScheduleModule.forRoot()],
+  imports: [HttpModule, SharedModule, ScheduleModule.forRoot()],
   providers: [EventsGateway, FaultsCron, DeviceInfoCron, StatusCron, StatusService, DeviceInfoService, FaultsService],
 })
 export class AppModule {
